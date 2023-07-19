@@ -1,20 +1,8 @@
 package com.example.myapplication
 
-class Calculator {
-    private val operations: Map<String, CalculatorOperation> = mapOf(
-        "+" to AddOperation(),
-        "-" to SubtractOperation(),
-        "*" to MultiplyOperation(),
-        "/" to DivideOperation()
-    )
-
-    fun calculate(operator: String?, num1: Int, num2: Int): Int? {
-        val operation = operations[operator]
-        return operation?.calculate(num1, num2)
-    }
-}
-
 fun main() {
+    var cal = Cal()
+
     print("첫 번째 숫자를 입력하세요: ")
     val num1 = readLine()!!.toInt()
 
@@ -24,8 +12,13 @@ fun main() {
     print("연산자를 입력하세요 (+, -, *, /, %): ")
     val operator = readLine()
 
-    val calculator = Calculator()
-    val result = calculator.calculate(operator, num1, num2)
+    val result = when (operator) {
+        "+" -> cal.add(num1, num2)
+        "-" -> cal.sub(num1, num2)
+        "*" -> cal.mul(num1, num2)
+        "/" -> cal.div(num1, num2)
+        else -> null
+    }
 
     if (result != null) {
         println("결과: $result")
@@ -33,3 +26,4 @@ fun main() {
         println("잘못된 연산자입니다.")
     }
 }
+
