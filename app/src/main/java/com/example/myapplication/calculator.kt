@@ -1,29 +1,39 @@
 package com.example.myapplication
 
+// Calculator.kt
 fun main() {
-    var cal = Cal()
+    val addition = Addition()
+    val subtraction = Subtraction()
+    val multiplication = Multiplication()
+    val division = Division()
 
-    print("첫 번째 숫자를 입력하세요: ")
-    val num1 = readLine()!!.toInt()
+    var isCalculatorOn = true
 
-    print("연산자를 입력하세요 (+, -, *, /, %): ")
-    val operator = readLine()
+    while (isCalculatorOn) {
+        println("첫 번째 숫자를 입력하세요:")
+        val num1 = readLine()?.toDoubleOrNull()
+        
+        println("연산자를 입력하세요 (+, -, *, /) or 종료하시려면 'q'를 입력하세요:")
+        val operator = readLine()
 
-    print("두 번째 숫자를 입력하세요: ")
-    val num2 = readLine()!!.toInt()
+        println("두번째 숫자를 입력하세요:")
+        val num2 = readLine()?.toDoubleOrNull()
 
-
-    val result = when (operator) {
-        "+" -> cal.add(num1, num2)
-        "-" -> cal.sub(num1, num2)
-        "*" -> cal.mul(num1, num2)
-        "/" -> cal.div(num1, num2)
-        else -> null
+        if (operator == "q") {
+            isCalculatorOn = false
+        } else {
+            val result = when (operator) {
+                "+" -> addition.perform(num1 ?: 0.0, num2 ?: 0.0)
+                "-" -> subtraction.perform(num1 ?: 0.0, num2 ?: 0.0)
+                "*" -> multiplication.perform(num1 ?: 0.0, num2 ?: 0.0)
+                "/" -> division.perform(num1 ?: 0.0, num2 ?: 0.0)
+                else -> {
+                    println("잘못된 연산자입니다.")
+                    continue
+                }
+            }
+            println("Result: $result")
+        }
     }
-
-    if (result != null) {
-        println("결과: $result")
-    } else {
-        println("잘못된 연산자입니다.")
-    }
+    println("계산을 종료합니다.")
 }
